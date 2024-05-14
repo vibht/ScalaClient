@@ -33,7 +33,7 @@ public class RecieveIpToClient {
             returnValue.setStatusCode(200);
             returnValue.setData(message);
             System.out.println(returnValue);
-            return returnValue;
+          
 
         } catch (Exception e) {
             e.printStackTrace();
