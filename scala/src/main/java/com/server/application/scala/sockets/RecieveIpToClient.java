@@ -2,6 +2,7 @@ package com.server.application.scala.sockets;
 
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
+import java.net.InetAddress;
 
 import org.springframework.stereotype.Service;
 
@@ -14,6 +15,7 @@ public class RecieveIpToClient {
 
     @PostConstruct
     public ResponseModel receiveIpToServer() {
+        boolean receiveFlag = false;
 
         DatagramSocket socket = null;
         ResponseModel returnValue = new ResponseModel(); 
@@ -33,6 +35,26 @@ public class RecieveIpToClient {
             returnValue.setStatusCode(200);
             returnValue.setData(message);
             System.out.println(returnValue);
+            receiveFlag =true;
+
+            if(Boolean.TRUE.equals(receiveFlag)){
+
+                InetAddress clientAddress = packet.getAddress();
+                int clientPort = packet.getPort();
+                if(clientAddress == packet.getAddress()){
+                    String responseMessage = message.concat("serverPort:"+clientPort+"");
+                    byte[] responseData =responseMessage.getBytes();
+
+                    DatagramPacket sendServerPacket =new DatagramPacket(responseData,responseData.length,clientAddress, clientPort);
+                    socket.send(sendServerPacket);
+                    String aa = new String(sendServerPacket.getData(), 0, sendServerPacket.getLength());
+                    System.out.println("Packet is send after receive packet"+aa);
+
+                }
+
+
+                System.out.println("address"+clientAddress +""+ "port"+ clientPort);
+            }
           
 
         } catch (Exception e) {
