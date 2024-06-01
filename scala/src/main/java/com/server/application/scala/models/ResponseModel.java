@@ -1,5 +1,7 @@
 package com.server.application.scala.models;
 
+import java.io.Serializable;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,7 +13,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class ResponseModel {
+public class ResponseModel implements Serializable{
     private String message;
     private Integer statusCode;
     private String status;

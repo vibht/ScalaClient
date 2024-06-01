@@ -45,7 +45,8 @@ public class RecieveIpToClient {
                     String responseMessage = message.concat("serverPort:"+clientPort+"");
                     byte[] responseData =responseMessage.getBytes();
 
-                    DatagramPacket sendServerPacket =new DatagramPacket(responseData,responseData.length,clientAddress, clientPort);
+                    InetAddress address = InetAddress.getByName("127.0.0.1");
+                    DatagramPacket sendServerPacket =new DatagramPacket(responseData,responseData.length,address, 54321);
                     socket.send(sendServerPacket);
                     String aa = new String(sendServerPacket.getData(), 0, sendServerPacket.getLength());
                     System.out.println("Packet is send after receive packet"+aa);
