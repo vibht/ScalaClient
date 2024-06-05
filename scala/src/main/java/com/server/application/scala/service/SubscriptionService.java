@@ -3,19 +3,18 @@ package com.server.application.scala.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.server.application.scala.models.ResponseModel;
 import com.server.application.scala.models.SubscriptionModel;
-import com.server.application.scala.helper.subscription;
+import com.server.application.scala.sockets.subscriptionSendScala;
 
 @Service
 public class SubscriptionService {
     
     @Autowired
-    private subscription subscriptionHelper;
+    private subscriptionSendScala subscriptionSend;
 
-    public ResponseModel createSubscription(SubscriptionModel model) {
+    public Boolean createSubscriptionService(SubscriptionModel model) {
         try {
-            ResponseModel requestBody = subscriptionHelper.createdSubscription(model);
+            Boolean requestBody = subscriptionSend.sendSubscriptionToScala(model);
             return requestBody;
 
         } catch (Exception e) {

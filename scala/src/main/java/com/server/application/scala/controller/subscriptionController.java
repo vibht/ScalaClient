@@ -20,16 +20,16 @@ public class subscriptionController {
     private SubscriptionService subscription;
 
     @PostMapping("/subscription")
-    public ResponseEntity<ResponseModel> submitSubscription(SubscriptionModel model) {
+    public ResponseEntity<Boolean> submitSubscription(SubscriptionModel model) {
         try {
-            ResponseModel returnValue = subscription.createSubscription(model);
+            Boolean returnValue = subscription.createSubscriptionService(model);
             return ResponseEntity.status(HttpStatus.CREATED).body(returnValue);
 
         } catch (Exception e) {
             e.printStackTrace();
 
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                    .body(new ResponseModel("error are found", 500, "Error", null, e.getMessage()));
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(false);
+                    //.body(new ResponseModel("error are found", 500, "Error", null, e.getMessage()));
 
         }
     }

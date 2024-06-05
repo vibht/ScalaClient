@@ -8,6 +8,7 @@ import java.net.DatagramSocket;
 import java.net.InetAddress;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import com.server.application.scala.helper.subscription;
@@ -16,7 +17,7 @@ import com.server.application.scala.models.SubscriptionModel;
 
 import jakarta.annotation.PostConstruct;
 
-@Service
+@Component
 public class subscriptionSendScala {
 
     @Autowired
@@ -26,12 +27,12 @@ public class subscriptionSendScala {
     public Boolean sendSubscriptionToScala(SubscriptionModel subscription) throws IOException {
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
         ObjectOutputStream oos = new ObjectOutputStream(bos);
-        DatagramSocket socket = new DatagramSocket(8089);
+        DatagramSocket socket = new DatagramSocket();
 
         try {
 
             InetAddress address = InetAddress.getByName("127.0.0.1");
-            int port = 89899;
+            int port = 12345;
             ResponseModel requestData = subscriptionClass.createdSubscription(subscription);
 
             oos.writeObject(requestData);
@@ -41,9 +42,9 @@ public class subscriptionSendScala {
 
             socket.send(packet);
 
-            String msg = new String(packet.toString());
+            // String msg = new String(packet.toString());
 
-            System.out.println(msg);
+            // System.out.println(msg);
             return true;
 
         } catch (Exception e) {
