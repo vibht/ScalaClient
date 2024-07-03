@@ -13,7 +13,7 @@ import jakarta.annotation.PostConstruct;
 @Service
 public class RecieveIpToClient {
 
-    // @PostConstruct
+    @PostConstruct
     public ResponseModel receiveIpToServer() {
         boolean receiveFlag = false;
 
@@ -21,7 +21,7 @@ public class RecieveIpToClient {
         ResponseModel returnValue = new ResponseModel();
 
         try {
-            socket = new DatagramSocket(54321);
+            socket = new DatagramSocket(9876);
             byte[] buffer = new byte[1024];
             DatagramPacket packet = new DatagramPacket(buffer, buffer.length);
             socket.receive(packet);
@@ -48,7 +48,7 @@ public class RecieveIpToClient {
                     InetAddress address = InetAddress.getByName("127.0.0.1");
                     DatagramPacket sendServerPacket = new DatagramPacket(responseData, responseData.length, address,
                             54321);
-                    socket.send(sendServerPacket);
+                   // socket.send(sendServerPacket);
                     String aa = new String(sendServerPacket.getData(), 0, sendServerPacket.getLength());
                     System.out.println("Packet is send after receive packet" + aa);
 
@@ -71,5 +71,26 @@ public class RecieveIpToClient {
         }
 
         return returnValue;
+    }
+
+    @PostConstruct
+    public ResponseModel sendAckToServer() {
+        try {
+            DatagramSocket socket = new DatagramSocket();
+            InetAddress address = InetAddress.getByName("localhost");
+            int port = 54321;
+            String payLoadMessage = "Successfully Receive ALL Services";
+            byte[] dataBuffer = payLoadMessage.getBytes();
+            DatagramPacket packet = new DatagramPacket(dataBuffer, dataBuffer.length, address, port);
+            socket.send(packet);
+            System.out.println("Successfully send To Server");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Error are found When client send Acknowledgement in Server" + e.getMessage());
+            // logger.info("Errro are found When Service is Send To UE {}", e.getMessage());
+
+        }
+        return null;
     }
 }
