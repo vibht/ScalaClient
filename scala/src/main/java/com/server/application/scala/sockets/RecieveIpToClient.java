@@ -13,7 +13,7 @@ import jakarta.annotation.PostConstruct;
 @Service
 public class RecieveIpToClient {
 
-    @PostConstruct
+    // @PostConstruct
     public ResponseModel receiveIpToServer() {
         boolean receiveFlag = false;
 
@@ -73,7 +73,7 @@ public class RecieveIpToClient {
         return returnValue;
     }
 
-    @PostConstruct
+    // @PostConstruct
     public ResponseModel sendAckToServer() {
         try {
             DatagramSocket socket = new DatagramSocket();
