@@ -8,7 +8,7 @@ import javax.jms.*;
 @Service
 public class RecieveSystemHealthToClientActiveMq {
 
-    public static void main(String[] args) {
+    public static void mains() {
         ActiveMQConnectionFactory factory = new ActiveMQConnectionFactory("tcp://localhost:61616");
 
         Connection connection = null;

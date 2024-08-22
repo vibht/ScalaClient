@@ -18,7 +18,7 @@ public class ScalaClientApplication {
 		Thread secondAppThread = new Thread(new Runnable() {
             @Override
             public void run() {
-                RecieveSystemHealthToClientActiveMq.main(null);
+                RecieveSystemHealthToClientActiveMq.mains();
             }
         });
 
